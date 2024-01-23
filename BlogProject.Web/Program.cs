@@ -1,13 +1,11 @@
-using BlogProject.Data.Context;
 using BlogProject.Data.Extensions;
-using Microsoft.EntityFrameworkCore;
+using BlogProject.Service.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.LoadDataLayerExtension(builder.Configuration);
+builder.Services.LoadServiceLayerExtension();
 builder.Services.AddControllersWithViews();
-
-
 
 var app = builder.Build();
 
