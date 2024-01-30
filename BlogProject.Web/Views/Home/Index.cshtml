@@ -1,7 +1,8 @@
-﻿@model List<Article>
+﻿@model List<ArticleDto>
 
 @foreach (var item in Model)
 {
     <h1>@item.Title</h1>
     <h3>@item.Content</h3>
+    <h5>@item.CreatedBy</h5>
 }

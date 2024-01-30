@@ -1,25 +1,26 @@
-﻿using BlogProject.Entity.Entity;
-using BlogProject.Service.Service.Abstraction;
+﻿using AutoMapper;
 using BlogProject.Data.UnitOfWorks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BlogProject.Entity.DTOs.Article;
+using BlogProject.Entity.Entity;
+using BlogProject.Service.Service.Abstraction;
 
 namespace BlogProject.Service.Service.Concrete
 {
     public class ArticleService : IArticleService
     {
         private readonly IUnitOfWork unitOfWork;
-        public ArticleService(IUnitOfWork unitOfWork) 
+        private readonly IMapper mapper;
+        public ArticleService(IUnitOfWork unitOfWork, IMapper mapper) 
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
-        public async Task<List<Article>> GetAllArticleAsync()
+        public async Task<List<ArticleDto>> GetAllArticleAsync()
         {
-            return await unitOfWork.GetRepository<Article>().GetAllAsync();
+            var articles = await unitOfWork.GetRepository<Article>().GetAllAsync();
+            var map = mapper.Map<List<ArticleDto>>(articles);
+            return map;
         }
     }
 }
