@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.LoadDataLayerExtension(builder.Configuration);
 builder.Services.LoadServiceLayerExtension();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -27,10 +27,9 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapAreaControllerRoute(
-        name : "Admin",
+        name: "Admin", 
         areaName: "Admin",
-        pattern: "Admin/{controller=Home}/{action=index}/{id?}"
-    );
+        pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
     endpoints.MapDefaultControllerRoute();
 });
 
